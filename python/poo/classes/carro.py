@@ -19,8 +19,12 @@ class Carro:
         else:    
             print(f'{self.marca} {self.ano} {self.cor} já está parado')
 
+    def __str__(self):
+        return f"{self.__class__.__name__} : {'; '.join([f'{chave}: {valor}' for chave, valor in self.__dict__.items()])}"
 
 carro1 = Carro(2015, 'Corsa', 'Vermelho')
 carro1.parar()
 carro1.andar()
 carro1.parar()
+
+print(carro1)

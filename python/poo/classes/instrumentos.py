@@ -4,7 +4,10 @@ class Instrumento:
         self.cor = cor 
         self.cordas = cordas 
 
-class EletricBass(Instrumento):
-    def __init__(self, marca, cor, cordas, captadores):
-        super().__init__(marca, cor, cordas, captadores)
-        self.captadores = captadores
+    def __str__(self):
+        return f"{self.__class__.__name__}: {', '.join([f'{chave}: {valor}' for chave, valor in self.__dict__.items()])}"
+    
+
+i1 = Instrumento('Fender', 'WoodStock', 4)
+
+print(i1)

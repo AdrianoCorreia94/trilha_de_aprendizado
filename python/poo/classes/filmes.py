@@ -18,6 +18,11 @@ class Filme:
         else:
             print('O filme nao está em reproducao ')
 
+    
+    def __str__(self):
+        return f"{self.__class__.__name__}: {', '.join([f'{chave}:{valor}' for chave, valor in self.__dict__.items()])}"
+
 f1 = Filme('Fly', 1930)
 
 f1.play()
+print(f1)
