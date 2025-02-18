@@ -19,13 +19,13 @@ class Ave(Animal):
         
 
 class Gato(Mamifero):
-    pass
+    pass    # posso utilizar o pass ou entao o init 
 
 class Cachorro(Mamifero):
-    pass
+    pass    # modelo usando o pass
 
 class Leao(Mamifero):
-    def __init__(self, **kw):
+    def __init__(self, **kw):   # modelo utilizando o init 
         super().__init__(**kw) 
 
 class Ornitorrico(Mamifero, Ave):
@@ -33,11 +33,12 @@ class Ornitorrico(Mamifero, Ave):
 
 # instancias
 
-o1 = Ornitorrico( nro_patas=2 , cor_pelo='Preto', cor_pena='Amarela')
+g = Gato(cor_pelo='preto', nro_patas=4) # para kargs, os parametros devem ser nomeados
+print(g)
+
+o1 = Ornitorrico( nro_patas=2 , cor_pelo='Preto', cor_pena='Amarela')   
 print(o1)
 
-g = Gato(cor_pelo='preto', nro_patas=4)
-print(g)
 
 l = Leao(nro_patas=4, cor_pelo='amarela')
 print(l)
