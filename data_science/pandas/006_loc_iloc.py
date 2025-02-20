@@ -1,16 +1,22 @@
 import pandas as pd 
-import numpy as np
 
-df = pd.read_csv('players.csv')
+df = pd.read_csv('players.csv', index_col= 0)
+
 
 # funcao iloc 
 # buscar registros pelo numero do indice 
-print(df.iloc[7])  # buscar o setimo registro 
+print(df.head(14))
+print(df.iloc[9])  # imprimir o registro da linha 9 (inicio da contagem linha 0)
 
+# --------------------------------------------------------------------------------
 
 # funcao loc 
 # buscar registro por descricao (label) e com booleanos
 
+# imprimir registros onde os dados da coluna age sejam menor 18
+print(df.loc[df.Age < 18])
+
+'''
 menores = df.loc[df.Age < 18] # selecionar do dataframe onde o registro em Age seja < 18
 print(menores)
 
@@ -30,3 +36,4 @@ print(madrid)
 fatiado = df.iloc[:6, 15:21]
 print(fatiado)
 
+'''
