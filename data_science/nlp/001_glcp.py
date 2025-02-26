@@ -15,11 +15,12 @@ s2 = 'Marte é um planeta rochoso'
 s3 = 'Jupiter é um planeta gasoso '
 s4 = 'A Lua é um satélite natural da Terra'
 
-# definir a gramatica
-grammar = CFG.fromstring("""
+# definir as regras da gramatica, seguindo o formato BNF
+gramatica = CFG.fromstring("""
     S -> SN SV
     SN -> Substantivo | Adjetivo | Artigo Substantivo | Artigo Adjetivo Substantivo | Artigo Substantivo Adjetivo
     SV -> Verbo | Verbo SN | Verbo SN Advérvio | Verbo Preposição SN | Verbo SN Preposição SN
+    
     Substantivo -> 'Terra' | 'Marte' | 'Jupiter' | 'Lua'| 'satélite'| 'planeta' 
     Artigo ->  'o' | 'a' | 'O' | 'A'| 'UM'| 'UMA' | 'um'| 'uma' | 'Um' | 'Uma'
     Adjetivo -> 'redonda' | 'rochoso' | 'gasoso' | 'natural' 
@@ -27,22 +28,22 @@ grammar = CFG.fromstring("""
     Preposição -> 'de' | 'da' | 'das' | 'dos' | 'do' |                          
                          """)
 
-#print('Gramatica', grammar)    # imprimir a gramatica
-#print('gramar.start() =>', grammar.start())   
+#print('Gramatica', gramatica)    # imprimir a gramatica
+#print('gramar.start() =>', gramatica.start())   
 
-#print(grammar.productions())
+#print(gramatica.productions())
 
 # COBERTURA DOS TERMOS
 '''
 print('Cobertura das palavras de entrada por uma gramatica: ')
 try:
-    grammar.check_coverage(['um','Marte'])  # verificar se todas as palavras da lista se encontram no objeto grammar
+    gramatica.check_coverage(['um','Marte'])  # verificar se todas as palavras da lista se encontram no objeto gramatica
     print('Todas as palavras cobertas')
 except:
     print('Nem todas')
 
 try:
-    grammar.check_coverage(['duns','natural'])
+    gramatica.check_coverage(['duns','natural'])
     print('todas cobertas')
 except:
     print('Algumas palavras nao cobertas')
@@ -51,7 +52,7 @@ except:
 # Parsing
 ''' 
 sent = s4.split()   # usar metodo split para a sentenca
-parser = nltk.ChartParser(grammar)  # criar o parser, utilizando o metodo nltk.ChartParser e a gramatica como parametro
+parser = nltk.ChartParser(gramatica)  # criar o parser, utilizando o metodo nltk.ChartParser e a gramatica como parametro
 
 for tree in parser.parse(sent): # chamar o metodo parse para o parser, enviando a sentenca como parametro
     print(tree)
@@ -68,7 +69,7 @@ for s in data:
     print(f'\nSentença: {s}')
     sent = s.split()
     print(sent)
-    parser = nltk.ChartParser(grammar)
+    parser = nltk.ChartParser(gramatica)
 
     for tree in parser.parse(sent):
         temp = tree 
@@ -91,15 +92,15 @@ print(f'\n\n\nPRODUCTIONS\n{productions}')
 
 # obtendo a gramatica livre de contexto 
 s = Nonterminal('S')
-prob_grammar = induce_pcfg(s, productions)
-print(f'\n\n\nProb Grammar\n{prob_grammar}')
+prob_gramatica = induce_pcfg(s, productions)
+print(f'\n\n\nProb gramatica\n{prob_gramatica}')
 
 # ALGORITMO DE VITERBI 
 print('Algoritmo de Viterbi')
 sample = 'A Terra é redonda'
 
 test = sample.split()
-viterbi_parser = nltk.ViterbiParser(prob_grammar)
+viterbi_parser = nltk.ViterbiParser(prob_gramatica)
 
 for tree in viterbi_parser.parse(test):
     print(f'\n\n\n{tree}')
